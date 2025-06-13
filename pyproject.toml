@@ -19,7 +19,7 @@ dev-dependencies = []
 
 [tool.rye.scripts]
 main = "python3 -m dbscraper.main"
-scraper = "python3 -m dbscraper.scraper"
+converter = "python3 -m dbscraper.converter"
 
 
 [tool.hatch.metadata]
