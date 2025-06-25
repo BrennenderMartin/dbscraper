@@ -2,10 +2,10 @@ import sqlite3
 import json
 
 # Replace 'your_dataset/your_database.db' with the path to your SQLite database file
-database_file = 'dbscraper/src/dbscraper/db.sqlite'
+database_file = './src/dbscraper/db.sqlite'
 
 # Replace 'output.json' with the name of the output JSON file
-output_json_file = 'dbscraper/src/dbscraper/db.json'
+output_json_file = './src/dbscraper/db.json'
 
 # Connect to the SQLite database
 conn = sqlite3.connect(database_file)
@@ -20,11 +20,15 @@ tables = [row[0] for row in cursor.fetchall()]
 db_data = {}
 
 for table in tables:
-    cursor.execute(f'SELECT * FROM "{table}"')
-    rows = cursor.fetchall()
-    column_names = [description[0] for description in cursor.description]
-    # Convert rows to list of dicts
-    db_data[table] = [dict(zip(column_names, row)) for row in rows]
+    if table == "Stop":
+        cursor.execute(f'SELECT * FROM "{table}"')
+        rows = cursor.fetchall()
+        column_names = [description[0] for description in cursor.description]
+        # Convert rows to list of dicts
+        db_data[table] = [dict(zip(column_names, row)) for row in rows]
+    else:
+        print(f"Skipping table: {table}")
+        continue
 
 # Close the cursor and database connection
 cursor.close()
