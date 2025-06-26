@@ -23,6 +23,7 @@ dev-dependencies = []
 main = "python3 -m dbscraper.main"
 converter = "python3 -m dbscraper.converter"
 plot = "python3 -m dbscraper.plot"
+koeln = "python3 -m dbscraper.koeln"
 
 
 [tool.hatch.metadata]
