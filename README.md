@@ -14,3 +14,4 @@ Zeitraum der Daten:
     - wo am wenigsten Verspätung ist
     - Graphisch auf einer Deutschlandkarte, am welchen Tagen welcher Zug von wo über wo wohin fährt
     - Zeitgraph, in welchem Monat am meisten Verspätung war
+    - Eine Liste erstellen, wo man sieht, in welchem Bahnhof wieviele Züge ankommen 

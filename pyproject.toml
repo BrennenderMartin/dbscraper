@@ -5,7 +5,9 @@ description = "Add your description here"
 authors = [
     { name = "BrennenderMartin", email = "mattis2612@outlook.de" }
 ]
-dependencies = []
+dependencies = [
+    "matplotlib>=3.10.3",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -20,6 +22,7 @@ dev-dependencies = []
 [tool.rye.scripts]
 main = "python3 -m dbscraper.main"
 converter = "python3 -m dbscraper.converter"
+plot = "python3 -m dbscraper.plot"
 
 
 [tool.hatch.metadata]

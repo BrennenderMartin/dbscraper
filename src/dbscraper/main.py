@@ -6,25 +6,6 @@ print(f"Loaded {len(db)} tables from db.json")
 longest_delay = 0
 long_row = 0
 
-for table_name, table_data in db.items():
-    print(f"Table: {table_name}")
-
-    if table_name != "Stop":
-        print("Skipping table:", table_name)
-        continue
-    else:
-        print("Processing table:", table_name)
-        for row in table_data:
-            print(row)
-            for key, value in row.items():
-                if key in ["arrival_delay", "departure_delay"]:
-                    if value is not None:
-                        this_value = int(value)
-                        if this_value >= longest_delay:
-                            longest_delay = value
-                            long_row = row
-
-
 def look_for(criteria: dict) -> dict:
     """ This is, what the criteria should look like, if a value cannot be given, leave it at None
     {\n
@@ -70,4 +51,58 @@ criteria = {
     "db_id": "-683349446891373235-2501130623-4"
 }
 
-print(f"{longest_delay}\n{long_row}")
+delay_dict = {
+    "early": 0,
+    "no_delay": 0,
+    "10_delay": 0,
+    "60_delay": 0,
+    "180_delay": 0,
+    "full_delay": 0,
+}
+
+def sort_data(delay_dict):
+    for table_name, table_data in db.items():
+        if table_name != "Stop": continue
+        else:
+            for row in table_data:
+                for key, value in row.items():
+                    if key in ["arrival_delay", "departure_delay"]:
+                        if value is None:
+                            delay_dict["no_delay"] += 1
+                        elif value < 0:
+                            delay_dict["early"] += 1
+                        elif 0 < value <= 10:
+                            delay_dict["10_delay"] += 1
+                        elif 10 < value <= 60:
+                            delay_dict["60_delay"] += 1
+                        elif 60 < value <= 180:
+                            delay_dict["180_delay"] += 1
+                        elif 180 < value:
+                            delay_dict["full_delay"] += 1
+                            print(value)
+
+def create_json(title, dict):
+    with open(f"{title}.json", "w", encoding="utf-8") as f:
+        json.dump(dict, f, indent=4)
+    print("Delay summary saved in delay_summary.json")
+
+sort_data(delay_dict)
+"""
+def find_longest_delay(longest_delay, long_row):
+    for table_name, table_data in db.items():
+        if table_name != "Stop": continue
+        else:
+            for row in table_data:
+                for key, value in row.items():
+                    if key in ["arrival_delay", "departure_delay"]:
+                        if value is not None:
+                            this_value = int(value)
+                            if this_value >= longest_delay:
+                                longest_delay = value
+                                long_row = row
+    return longest_delay, long_row
+
+delay, row = find_longest_delay(longest_delay, long_row)
+
+print(f"{delay}\n{row}")
+"""
