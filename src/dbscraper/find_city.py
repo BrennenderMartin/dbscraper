@@ -3,11 +3,6 @@ import json
 def find_city(city_name: str, create_json_bool: bool = False) -> tuple[str, dict]:
     city_dict = []
     
-    def create_json(title: str, dict: dict) -> None:
-        with open(f"{title}.json", "w", encoding="utf-8") as f:
-            json.dump(dict, f, indent=4)
-        print(f"Dict saved in {title}.json")
-    
     umlaut_map = {
         "ä": "ae",
         "ö": "oe",
@@ -17,6 +12,11 @@ def find_city(city_name: str, create_json_bool: bool = False) -> tuple[str, dict
         "Ü": "Ue",
         "ß": "ss"
     }
+    
+    def create_json(title: str, dict: dict) -> None:
+        with open(f"{title}.json", "w", encoding="utf-8") as f:
+            json.dump(dict, f, indent=4)
+        print(f"Dict saved in {title}.json")
 
     def replace_umlauts(text: str) -> str:
         for umlaut, replacement in umlaut_map.items():
